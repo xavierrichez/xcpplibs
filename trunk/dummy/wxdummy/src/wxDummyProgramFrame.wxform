@@ -1,0 +1,388 @@
+object frmNewForm: TfrmNewForm
+  Left = 8
+  Top = 8
+  Width = 344
+  Height = 184
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'wxDummy'
+  Color = clAppWorkSpace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = True
+  PopupMenu = MainForm.DesignerPopup
+  Visible = True
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnResize = NewFormResize
+  Wx_ICON.Data = {07544269746D617000000000}
+  Wx_Name = 'wxDummy'
+  Wx_IDName = 'ID_DIALOG1'
+  Wx_IDValue = 1000
+  Wx_Class = 'wxFrame'
+  Wx_Center = True
+  Wx_Hidden = False
+  Wx_GeneralStyle = []
+  Wx_DialogStyle = [wxCAPTION, wxSYSTEM_MENU, wxTHICK_FRAME, wxSTAY_ON_TOP, wxDIALOG_NO_PARENT, wxMINIMIZE_BOX, wxCLOSE_BOX]
+  Wx_DesignerType = dtWxFrame
+  PixelsPerInch = 96
+  TextHeight = 13
+  object WxBoxSizer1: TWxBoxSizer
+    Left = 0
+    Top = 0
+    Width = 336
+    Height = 157
+    Align = alClient
+    TabOrder = 0
+    Orientation = wxVertical
+    Wx_Class = 'wxBoxSizer'
+    Wx_ControlOrientation = wxControlVertical
+    Wx_HorizontalAlignment = wxSZALIGN_LEFT
+    Wx_IDName = 'ID_WXBOXSIZER1'
+    Wx_IDValue = 1113
+    Wx_StretchFactor = 0
+    Wx_StrechFactor = 0
+    Wx_VerticalAlignment = wxSZALIGN_GROW_VERTICAL
+    object WxBoxSizer4: TWxBoxSizer
+      Left = 5
+      Top = 5
+      Width = 326
+      Height = 27
+      TabOrder = 2
+      SpaceValue = 1
+      Wx_Class = 'wxBoxSizer'
+      Wx_ControlOrientation = wxControlVertical
+      Wx_HorizontalAlignment = wxSZALIGN_GROW_HORIZONTAL
+      Wx_IDName = 'ID_WXBOXSIZER4'
+      Wx_IDValue = 1122
+      Wx_StretchFactor = 1
+      Wx_StrechFactor = 1
+      object StaticTextCapacite: TWxStaticText
+        Left = 1
+        Top = 1
+        Width = 89
+        Height = 25
+        Caption = 'Capacit'#233'    '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        Wx_BGColor = clBlack
+        Wx_Class = 'wxStaticText'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_LEFT
+        Wx_IDName = 'ID_STATICTEXTCAPACITE'
+        Wx_IDValue = 1166
+        Wx_LabelStyle = []
+        Wx_StrechFactor = 0
+        Wx_VerticalAlignment = wxSZALIGN_TOP
+      end
+      object EditCapacite: TWxEdit
+        Left = 92
+        Top = 3
+        Width = 150
+        Height = 24
+        TabOrder = 0
+        Text = '1024'
+        Wx_BGColor = clBlack
+        Wx_Class = 'wxTextCtrl'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_EditStyle = []
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_GROW_HORIZONTAL
+        Wx_IDName = 'ID_EDITCAPACITE'
+        Wx_IDValue = 1160
+        Wx_StrechFactor = 1
+        Wx_StretchFactor = 1
+        Wx_VerticalAlignment = wxSZALIGN_GROW_VERTICAL
+      end
+      object ComboBoxUnits: TWxComboBox
+        Left = 244
+        Top = 3
+        Width = 81
+        Height = 24
+        ItemHeight = 13
+        TabOrder = 1
+        Text = 'octets'
+        Items.Strings = (
+          'octets'
+          'Ko'
+          'Mo'
+          'Go')
+        Wx_BGColor = clBlack
+        Wx_Class = 'wxComboBox'
+        Wx_ComboboxStyle = []
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_LEFT
+        Wx_IDName = 'ID_COMBOBOXUNITS'
+        Wx_IDValue = 1161
+        Wx_StrechFactor = 0
+        Wx_VerticalAlignment = wxSZALIGN_GROW_VERTICAL
+      end
+    end
+    object WxBoxSizer3: TWxBoxSizer
+      Left = 5
+      Top = 42
+      Width = 326
+      Height = 27
+      TabOrder = 1
+      SpaceValue = 1
+      Wx_Class = 'wxBoxSizer'
+      Wx_ControlOrientation = wxControlVertical
+      Wx_HorizontalAlignment = wxSZALIGN_GROW_HORIZONTAL
+      Wx_IDName = 'ID_WXBOXSIZER3'
+      Wx_IDValue = 1121
+      Wx_StretchFactor = 1
+      Wx_StrechFactor = 1
+      object StaticTextDestination: TWxStaticText
+        Left = 1
+        Top = 1
+        Width = 87
+        Height = 25
+        Caption = 'Destination'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        Wx_BGColor = clBlack
+        Wx_Class = 'wxStaticText'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_LEFT
+        Wx_IDName = 'ID_STATICTEXTDESTINATION'
+        Wx_IDValue = 1167
+        Wx_LabelStyle = []
+        Wx_StrechFactor = 0
+        Wx_VerticalAlignment = wxSZALIGN_TOP
+      end
+      object EditOpen: TWxEdit
+        Left = 90
+        Top = 3
+        Width = 200
+        Height = 24
+        TabOrder = 0
+        Text = './dummy.file'
+        Wx_BGColor = clBlack
+        Wx_Class = 'wxTextCtrl'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_EditStyle = []
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_GROW_HORIZONTAL
+        Wx_IDName = 'ID_EDITOPEN'
+        Wx_IDValue = 1164
+        Wx_StrechFactor = 1
+        Wx_StretchFactor = 1
+        Wx_VerticalAlignment = wxSZALIGN_GROW_VERTICAL
+      end
+      object ButtonOpen: TWxButton
+        Left = 292
+        Top = 3
+        Width = 33
+        Height = 28
+        Caption = '...'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -19
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        Wx_BKColor = clBlack
+        Wx_ButtonStyle = []
+        Wx_Class = 'wxButton'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_Default = False
+        Wx_EventList.Strings = (
+          'EVT_BUTTON:OnClick'
+          'EVT_UPDATE_UI:OnUpdateUI')
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_LEFT
+        Wx_IDName = 'ID_BUTTONOPEN'
+        Wx_IDValue = 1165
+        Wx_StrechFactor = 0
+        Wx_VerticalAlignment = wxSZALIGN_TOP
+      end
+    end
+    object WxBoxSizer2: TWxBoxSizer
+      Left = 95
+      Top = 79
+      Width = 145
+      Height = 36
+      TabOrder = 0
+      Wx_Class = 'wxBoxSizer'
+      Wx_ControlOrientation = wxControlVertical
+      Wx_IDName = 'ID_WXBOXSIZER2'
+      Wx_IDValue = 1120
+      Wx_StretchFactor = 0
+      Wx_StrechFactor = 0
+      object ButtonOK: TWxButton
+        Left = 5
+        Top = 5
+        Width = 51
+        Height = 28
+        Caption = '&OK'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Wx_BKColor = clBlack
+        Wx_ButtonStyle = []
+        Wx_Class = 'wxButton'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_Default = False
+        Wx_EventList.Strings = (
+          'EVT_BUTTON:OnClick'
+          'EVT_UPDATE_UI:OnUpdateUI')
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = [wxCLIP_CHILDREN]
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_LEFT
+        Wx_IDName = 'ID_BUTTONOK'
+        Wx_IDValue = 1156
+        Wx_StrechFactor = 0
+      end
+      object ButtonCancel: TWxButton
+        Left = 66
+        Top = 5
+        Width = 74
+        Height = 28
+        Caption = '&Annuler'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Times New Roman'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 1
+        Wx_BKColor = clBlack
+        Wx_ButtonStyle = []
+        Wx_Class = 'wxButton'
+        Wx_ControlOrientation = wxControlHorizontal
+        Wx_Default = False
+        Wx_EventList.Strings = (
+          'EVT_BUTTON:OnClick'
+          'EVT_UPDATE_UI:OnUpdateUI')
+        Wx_FGColor = clBlack
+        Wx_GeneralStyle = []
+        Wx_Hidden = False
+        Wx_HorizontalAlignment = wxSZALIGN_LEFT
+        Wx_IDName = 'ID_BUTTONCANCEL'
+        Wx_IDValue = 1157
+        Wx_StrechFactor = 0
+      end
+    end
+    object DirDialogChoice: TWxDirDialog
+      Left = 154
+      Top = 125
+      Width = 28
+      Height = 27
+      TabOrder = 3
+      Glyph.Data = {
+        36090000424D3609000000000000360000002800000018000000180000000100
+        2000000000000009000000000000000000000000000000000000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080008080
+        8000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C0000080800000FFFF0000808000C0C0C00000FFFF0000FF
+        FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000808000C0C0
+        C00000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C0000080800000FFFF0000808000C0C0C00000FFFF0000FF
+        FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000808000C0C0
+        C00000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C0000080800000FFFF0000808000C0C0C00000FFFF0000FF
+        FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000808000C0C0
+        C00000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C0000080800000FFFF0000808000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000808000C0C0
+        C00000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C00000808000C0C0C00000808000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000808000C0C0
+        C00000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C00000808000C0C0C00000808000FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00C0C0C000FFFF
+        FF0000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C00000808000C0C0C0000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        800000808000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C00000808000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000808000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C00000808000FFFFFF00C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000808000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C00000808000FFFFFF00C0C0C000C0C0C000C0C0
+        C000008080000080800000808000008080000080800000808000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C000C0C0C0000080800000808000008080000080
+        8000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C000C0C0
+        C000C0C0C000C0C0C000C0C0C000C0C0C0000000000000808000008080008080
+        8000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000808000008080008080
+        8000FFFFFF0000000000FF000000FF000000FF000000FF000000FF000000FF00
+        0000FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF00
+        000000000000FFFFFF0000000000FFFFFF000000000000808000008080008080
+        8000808080008080800080808000808080008080800080808000808080008080
+        8000808080008080800080808000808080008080800080808000808080008080
+        8000808080008080800080808000808080008080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000008080000080
+        8000008080000080800000808000008080000080800000808000}
+      Wx_Class = 'wxDirDialog'
+      Wx_Message = 'Choose a directory'
+      Wx_DefaultDir = '.'
+      Wx_DirDialogStyle = []
+    end
+  end
+end

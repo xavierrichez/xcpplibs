@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=wxDummy
+Exec=wxdummy
+Icon=wxdummy
+Type=Application
+Comment=A front-end to dummy
