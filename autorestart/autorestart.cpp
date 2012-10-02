@@ -37,8 +37,10 @@ int main(int argc, char *argv[])
 	}
 
 	std::string cmdLine = argv[1];
+	cmdLine.append(" ");
 	for(int i=2; i<argc; i++)
 		cmdLine.append(argv[i]).append(" ");
+	std::cout<<cmdLine<<std::endl;
 
 	boost::iostreams::file_descriptor_sink cmdLog(std::string(argv[1]).append(".log"), BOOST_IOS::out);		
 	while (true)
