@@ -2,16 +2,16 @@
 #include <string>
 #include "logger.h"
 
-log::LogLevel log::verbosity = UNDEFINED;
+xlog::LogLevel xlog::verbosity = UNDEFINED;
 
 /// Error message.
 //===============================================
-void log::error(const char *class_name, const char *operation, const char *message)
+void xlog::error(const char *class_name, const char *operation, const char *message)
 //===============================================
 {
-	if (log::verbosity == UNDEFINED)
-		msg("log", "error", "No value for log::verbosity !");
-	else if (log::verbosity <= ERROR)
+	if (xlog::verbosity == UNDEFINED)
+		msg("log", "error", "No value for xlog::verbosity !");
+	else if (xlog::verbosity <= ERROR)
 	{
 		std::string msg = "!! ERROR -->> ";
 		
@@ -30,7 +30,7 @@ void log::error(const char *class_name, const char *operation, const char *messa
 }
 
 //===============================================
-void log::error(const char *message)
+void xlog::error(const char *message)
 //===============================================
 {
 	error(NULL, NULL, message);
@@ -39,12 +39,12 @@ void log::error(const char *message)
 
 /// Warn message.
 //===============================================
-void log::warn(const char *class_name, const char *operation, const char *message)
+void xlog::warn(const char *class_name, const char *operation, const char *message)
 //===============================================
 {
-	if (log::verbosity == UNDEFINED)
-		msg("log", "warn", "No value for log::verbosity !");
-	else if (log::verbosity <= WARN)
+	if (xlog::verbosity == UNDEFINED)
+		msg("log", "warn", "No value for xlog::verbosity !");
+	else if (xlog::verbosity <= WARN)
 	{
 		std::string msg = "- WARN - ";
 		
@@ -63,7 +63,7 @@ void log::warn(const char *class_name, const char *operation, const char *messag
 }
 
 //===============================================
-void log::warn(const char *message)
+void xlog::warn(const char *message)
 //===============================================
 {
 	warn(NULL, NULL, message);
@@ -72,12 +72,12 @@ void log::warn(const char *message)
 
 /// Info message.
 //===============================================
-void log::info(const char *class_name, const char *operation, const char *message)
+void xlog::info(const char *class_name, const char *operation, const char *message)
 //===============================================
 {
-	if (log::verbosity == UNDEFINED)
-		msg("log", "info", "No value for log::verbosity !");
-	else if (log::verbosity <= INFO)
+	if (xlog::verbosity == UNDEFINED)
+		msg("log", "info", "No value for xlog::verbosity !");
+	else if (xlog::verbosity <= INFO)
 	{
 		std::string msg = " (INFO) ";
 		
@@ -95,7 +95,7 @@ void log::info(const char *class_name, const char *operation, const char *messag
 }
 
 //===============================================
-void log::info(const char *message)
+void xlog::info(const char *message)
 //===============================================
 {
 	info(NULL, NULL, message);
@@ -104,12 +104,12 @@ void log::info(const char *message)
 
 /// Debug message.
 //===============================================
-void log::debug(const char *class_name, const char *operation, const char *message)
+void xlog::debug(const char *class_name, const char *operation, const char *message)
 //===============================================
 {
-	if (log::verbosity == UNDEFINED)
-		msg("log", "debug", "No value for log::verbosity !");
-	else if (log::verbosity <= DEBUG)
+	if (xlog::verbosity == UNDEFINED)
+		msg("log", "debug", "No value for xlog::verbosity !");
+	else if (xlog::verbosity <= DEBUG)
 	{
 		std::string msg = "  DEBUG  ";
 		if (class_name)
@@ -126,7 +126,7 @@ void log::debug(const char *class_name, const char *operation, const char *messa
 }
 
 //===============================================
-void log::debug(const char *message)
+void xlog::debug(const char *message)
 //===============================================
 {
 	debug(NULL, NULL, message);
@@ -135,12 +135,12 @@ void log::debug(const char *message)
 
 /// Trace message.
 //===============================================
-void log::trace(const char *class_name, const char *operation, const char *message)
+void xlog::trace(const char *class_name, const char *operation, const char *message)
 //===============================================
 {
-	if (log::verbosity == UNDEFINED)
-		msg("log", "trace", "No value for log::verbosity !");
-	else if (log::verbosity <= TRACE)
+	if (xlog::verbosity == UNDEFINED)
+		msg("log", "trace", "No value for xlog::verbosity !");
+	else if (xlog::verbosity <= TRACE)
 	{
 		std::string msg = "  TRACE  ";
 		if (class_name)
@@ -157,7 +157,7 @@ void log::trace(const char *class_name, const char *operation, const char *messa
 }
 
 //===============================================
-void log::trace(const char *message)
+void xlog::trace(const char *message)
 //===============================================
 {
 	trace(NULL, NULL, message);
@@ -166,7 +166,7 @@ void log::trace(const char *message)
 
 /// Message.
 //===============================================
-void log::msg(const char *class_name, const char *operation, const char *message)
+void xlog::msg(const char *class_name, const char *operation, const char *message)
 //===============================================
 {
 	std::string msg;
@@ -184,7 +184,7 @@ void log::msg(const char *class_name, const char *operation, const char *message
 }
 
 //===============================================
-void log::msg(const char *message)
+void xlog::msg(const char *message)
 //===============================================
 {
 	msg(NULL, NULL, message);
@@ -192,7 +192,7 @@ void log::msg(const char *message)
 
 
 //===============================================
-void log::syserr(const char *message)
+void xlog::syserr(const char *message)
 //===============================================
 {
 	if (message)
@@ -204,7 +204,7 @@ void log::syserr(const char *message)
 
 
 //===============================================
-void log::fatal(const char *message)
+void xlog::fatal(const char *message)
 //===============================================
 {
 	if (message)

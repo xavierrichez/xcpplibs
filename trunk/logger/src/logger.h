@@ -23,7 +23,7 @@
 
 #include <string>
 
-namespace log
+namespace xlog
 {
 	typedef enum { UNDEFINED=-1, TRACE, DEBUG, INFO, WARN, ERROR, NO_LOG } LogLevel;
 	extern LogLevel verbosity;
