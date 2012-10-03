@@ -1,25 +1,8 @@
 #include <iostream>
 #include <string>
-#include "Logger.h"
+#include "logger.h"
 
 log::LogLevel log::verbosity = UNDEFINED;
-
-/// Setup the logger.
-//===============================================
-void log::setup(const char *filename)
-//===============================================
-{
-	// TODO : parse config file
-}
-
-/// Setup the logger.
-//===============================================
-void log::setup(LogLevel level)
-//===============================================
-{
-	log::verbosity = level;
-}
-
 
 /// Error message.
 //===============================================
