@@ -28,9 +28,6 @@ namespace log
 	typedef enum { UNDEFINED=-1, TRACE, DEBUG, INFO, WARN, ERROR, NO_LOG } LogLevel;
 	extern LogLevel verbosity;
 	
-	void setup(const char *filename);
-	void setup(LogLevel verbosity);
-	
 	/// error message if log::verbosity is lower or equal to ERROR
 	void error(const char *class_name, const char *operation, const char *message=NULL);
 	void error(const char *message);
