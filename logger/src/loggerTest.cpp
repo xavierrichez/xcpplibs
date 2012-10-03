@@ -6,16 +6,16 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		std::cerr<<"log::verbosity must be set"<<std::endl;
+		std::cerr<<"xlog::verbosity must be set"<<std::endl;
 		exit(0);
 	}
 	int level = atoi(argv[1]);
-	log::setup((log::LogLevel)level);
-	log::error("loggerTest", "main", "test error");
-	log::warn("loggerTest",  "main", "test warn");
-	log::info("loggerTest",  "main", "test info");
-	log::debug("loggerTest", "main", "test debug");
-	log::trace("loggerTest", "main", "test trace");
+	xlog::setup((xlog::LogLevel)level);
+	xlog::error("loggerTest", "main", "test error");
+	xlog::warn("loggerTest",  "main", "test warn");
+	xlog::info("loggerTest",  "main", "test info");
+	xlog::debug("loggerTest", "main", "test debug");
+	xlog::trace("loggerTest", "main", "test trace");
 }
 
 
