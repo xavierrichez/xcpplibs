@@ -21,12 +21,15 @@
 #ifndef _Logger_H
 #define _Logger_H
 
-#include <string>
-
 namespace xlog
 {
 	typedef enum { UNDEFINED=-1, TRACE, DEBUG, INFO, WARN, ERROR, NO_LOG } LogLevel;
-	extern LogLevel verbosity;
+	extern LogLevel level;
+
+	void setLogLevel(LogLevel level);
+	void setLogLevel(int level);
+	void setLogLevel(const char *level);
+
 	
 	/// error message if log::verbosity is lower or equal to ERROR
 	void error(const char *class_name, const char *operation, const char *message=NULL);
