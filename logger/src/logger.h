@@ -23,7 +23,7 @@
 
 namespace xlog
 {
-	typedef enum { UNDEFINED=-1, TRACE, DEBUG, INFO, WARN, ERROR, NO_LOG } LogLevel;
+	typedef enum { level_UNDEFINED=-1, level_TRACE, level_DEBUG, level_INFO, level_WARN, level_ERROR, level_NO_LOG } LogLevel;
 	extern LogLevel level;
 
 	void setLogLevel(LogLevel level);
