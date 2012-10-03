@@ -15,7 +15,7 @@ all: $(OBJS)
 clean:
 		rm -f *.o $(TARGET)
 		
-install:
+install: all
 		mkdir -p $(PREFIX)/lib
 		install $(TARGET) $(PREFIX)/lib
 		mkdir -p $(PREFIX)/include/xcpplibs
