@@ -21,6 +21,12 @@
 #ifndef _Logger_H
 #define _Logger_H
 
+#ifdef _WIN32
+#include <windef.h>
+#else
+#include <stddef.h>
+#endif
+
 namespace xlog
 {
 	typedef enum { level_UNDEFINED=-1, level_TRACE, level_DEBUG, level_INFO, level_WARN, level_ERROR, level_NO_LOG } LogLevel;
