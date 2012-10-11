@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include "logger.h"
 
 xlog::LogLevel xlog::level = level_UNDEFINED;
@@ -40,7 +41,7 @@ void xlog::error(const char *class_name, const char *operation, const char *mess
 		msg("log", "error", "No value set for xlog::level !");
 	else if (xlog::level <= level_ERROR)
 	{
-		std::string msg = "!! ERROR -->> ";
+		std::string msg = "!!ERROR -->> ";
 		
 		if (class_name)
 			msg = msg + class_name;
@@ -239,5 +240,6 @@ void xlog::fatal(const char *message)
 		std::string msg = std::string("Fatal error ! The program will exit. Message is :\n") + message;
 		std::cerr<<msg<<std::endl;
 	}
+	exit(EXIT_FAILURE);
 }
 
