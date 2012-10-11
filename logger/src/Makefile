@@ -1,8 +1,17 @@
 
+# CONFIG : DEBUG OR RELEASE ?
+CONFIG= RELEASE
+#CONFIG= DEBUG
+
 AR=ar
 CC=gcc
 CXX=g++
-CXXFLAGS=
+ifeq (DEBUG, ${CONFIG})
+	# add debug symbols
+	CXXFLAGS=-g -ggdb -gstabs
+else
+	CXXFLAGS=-s -O3
+endif
 LIBS=
 OBJS=logger.o
 TARGET=libxcpplogger.a
