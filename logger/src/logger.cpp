@@ -52,7 +52,7 @@ void xlog::error(const char *class_name, const char *operation, const char *mess
 			
 		if (! msg.empty())			
 		{
-			std::clog<<msg<<std::endl;
+			std::cout<<msg<<std::endl;
 		}
 	}
 }
@@ -85,7 +85,7 @@ void xlog::warn(const char *class_name, const char *operation, const char *messa
 			
 		if (! msg.empty())			
 		{
-			std::clog<<msg<<std::endl;
+			std::cout<<msg<<std::endl;
 		}
 	}
 }
@@ -117,7 +117,7 @@ void xlog::info(const char *class_name, const char *operation, const char *messa
 			msg = msg + message;	
 		if (! msg.empty())			
 		{
-			std::clog<<msg<<std::endl;
+			std::cout<<msg<<std::endl;
 		}
 	}
 }
@@ -148,7 +148,7 @@ void xlog::debug(const char *class_name, const char *operation, const char *mess
 			msg = msg + message;	
 		if (! msg.empty())			
 		{
-			std::clog<<msg<<std::endl;
+			std::cout<<msg<<std::endl;
 		}
 	}
 }
@@ -179,7 +179,7 @@ void xlog::trace(const char *class_name, const char *operation, const char *mess
 			msg = msg + message;	
 		if (! msg.empty())			
 		{
-			std::clog<<msg<<std::endl;
+			std::cout<<msg<<std::endl;
 		}
 	}
 }
@@ -243,3 +243,28 @@ void xlog::fatal(const char *message)
 	exit(EXIT_FAILURE);
 }
 
+
+/// Trace message.
+//===============================================
+void xlog::fatal(const char *class_name, const char *operation, const char *message)
+//===============================================
+{
+	if ((! class_name) && (! operation))
+		xlog::fatal(message);
+
+	else
+	{
+		std::string msg = "Fatal error ! ";
+		if (class_name)
+			msg = msg + class_name;
+		if (operation)
+			msg = msg + "::" + operation + "  ";
+		if (message)
+			msg = msg + message;
+		if (! msg.empty())
+		{
+			std::cerr<<msg<<std::endl;
+		}
+	}
+	exit(EXIT_FAILURE);
+}
