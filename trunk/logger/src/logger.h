@@ -65,6 +65,7 @@ namespace xlog
 	void syserr(const char *message);
 
 	/// fatal error !.
+	void fatal(const char *class_name, const char *operation, const char *message=NULL);
 	void fatal(const char *message);
 };
 
