@@ -6,7 +6,7 @@ PLATFORM=	UNIX
 
 ifeq (DEBUG, $(CONFIG))
 	# add debug symbols
-	BUILDFLAGS=-g -ggdb -gstabs
+	BUILDFLAGS=-ggdb
 else
 	# release optimization
 	BUILDFLAGS=-s -O3
