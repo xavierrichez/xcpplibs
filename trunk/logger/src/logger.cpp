@@ -98,7 +98,7 @@ void xlog::warn(const char *class_name, const char *operation, const char *messa
 		msg("log", "warn", "No value set for xlog::level !");
 	else if (xlog::level <= level_WARN)
 	{
-		std::string msg = "- WARN - ";
+		std::string msg = "--WARN-- ";
 		formatMessage(msg, class_name, operation, message);
 		std::cout<<msg<<std::endl;
 	}
@@ -121,7 +121,7 @@ void xlog::info(const char *class_name, const char *operation, const char *messa
 		msg("log", "info", "No value set for xlog::level !");
 	else if (xlog::level <= level_INFO)
 	{
-		std::string msg = "( INFO ) ";
+		std::string msg = "- INFO - ";
 		formatMessage(msg, class_name, operation, message);
 		std::cout<<msg<<std::endl;
 	}
@@ -144,7 +144,7 @@ void xlog::debug(const char *class_name, const char *operation, const char *mess
 		msg("log", "debug", "No value set for xlog::level !");
 	else if (xlog::level <= level_DEBUG)
 	{
-		std::string msg = "  DEBUG  ";
+		std::string msg = "( DEBUG )";
 		formatMessage(msg, class_name, operation, message);
 		std::cout<<msg<<std::endl;
 	}
@@ -167,7 +167,7 @@ void xlog::trace(const char *class_name, const char *operation, const char *mess
 		msg("log", "trace", "No value set for xlog::level !");
 	else if (xlog::level <= level_TRACE)
 	{
-		std::string msg = "  TRACE  ";
+		std::string msg = "((TRACE))";
 		formatMessage(msg, class_name, operation, message);
 		std::cout<<msg<<std::endl;
 	}
