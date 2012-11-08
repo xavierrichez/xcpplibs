@@ -31,11 +31,14 @@ namespace xlog
 {
 	typedef enum { level_UNDEFINED=-1, level_TRACE, level_DEBUG, level_INFO, level_WARN, level_ERROR, level_NO_LOG } LogLevel;
 	extern LogLevel level;
+	extern bool		printDate;
 
 	void setLogLevel(LogLevel level);
 	void setLogLevel(int level);
 	void setLogLevel(const char *level);
 
+	void enableDateTimeLog(bool enabled=true);
+	const char *	dateTime();
 	
 	/// error message if log::verbosity is lower or equal to ERROR
 	void error(const char *class_name, const char *operation, const char *message=NULL);

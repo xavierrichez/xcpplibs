@@ -1,8 +1,12 @@
 #include <iostream>
 #include <string>
-#include <stdlib.h>
+#include <cstdlib>
+#include <ctime>
 #include "logger.h"
 
+bool		   xlog::printDate = false;
+static time_t  dateTime_t;
+static char    dateTimeStr[40];
 xlog::LogLevel xlog::level = level_UNDEFINED;
 
 void xlog::setLogLevel(LogLevel l)
@@ -32,6 +36,21 @@ void xlog::setLogLevel(const char *l)
 		xlog::level = xlog::level_NO_LOG;
 }
 
+void xlog::enableDateTimeLog(bool enabled)
+{
+	xlog::printDate = enabled;
+}
+
+const char *xlog::dateTime()
+{
+	time (&dateTime_t);
+
+	struct tm * timeinfo = localtime ( &dateTime_t );
+	strftime(dateTimeStr, 40, "%Y-%m-%d %H-%M-%S", timeinfo);
+
+	return dateTimeStr;
+}
+
 /// Error message.
 //===============================================
 void xlog::error(const char *class_name, const char *operation, const char *message)
@@ -43,6 +62,8 @@ void xlog::error(const char *class_name, const char *operation, const char *mess
 	{
 		std::string msg = "!!ERROR -->> ";
 		
+		if (printDate)
+			msg = msg + dateTime();
 		if (class_name)
 			msg = msg + class_name;
 		if (operation)
@@ -76,6 +97,8 @@ void xlog::warn(const char *class_name, const char *operation, const char *messa
 	{
 		std::string msg = "- WARN - ";
 		
+		if (printDate)
+			msg = msg + dateTime();
 		if (class_name)
 			msg = msg + class_name;
 		if (operation)
@@ -109,6 +132,8 @@ void xlog::info(const char *class_name, const char *operation, const char *messa
 	{
 		std::string msg = " (INFO) ";
 		
+		if (printDate)
+			msg = msg + dateTime();
 		if (class_name)
 			msg = msg + class_name;
 		if (operation)
@@ -140,6 +165,9 @@ void xlog::debug(const char *class_name, const char *operation, const char *mess
 	else if (xlog::level <= level_DEBUG)
 	{
 		std::string msg = "  DEBUG  ";
+
+		if (printDate)
+			msg = msg + dateTime();
 		if (class_name)
 			msg = msg + class_name;
 		if (operation)
@@ -171,6 +199,9 @@ void xlog::trace(const char *class_name, const char *operation, const char *mess
 	else if (xlog::level <= level_TRACE)
 	{
 		std::string msg = "  TRACE  ";
+
+		if (printDate)
+			msg = msg + dateTime();
 		if (class_name)
 			msg = msg + class_name;
 		if (operation)
@@ -198,6 +229,9 @@ void xlog::msg(const char *class_name, const char *operation, const char *messag
 //===============================================
 {
 	std::string msg;
+
+	if (printDate)
+		msg = msg + dateTime();
 	if (class_name)
 		msg = msg + class_name;
 	if (operation)
@@ -225,7 +259,10 @@ void xlog::syserr(const char *message)
 {
 	if (message)
 	{
-		std::string msg = std::string("System error : ") + message;
+		std::string msg;
+		if (printDate)
+			msg.append(dateTime());
+		msg = msg + std::string("System error : ") + message;
 		std::cerr<<msg<<std::endl;
 	}
 }
@@ -237,7 +274,10 @@ void xlog::fatal(const char *message)
 {
 	if (message)
 	{
-		std::string msg = std::string("Fatal error ! The program will exit. Message is :\n") + message;
+		std::string msg;
+		if (printDate)
+			msg = msg + dateTime();
+		msg = msg + std::string("Fatal error ! The program will exit. Message is :\n") + message;
 		std::cerr<<msg<<std::endl;
 	}
 	exit(EXIT_FAILURE);
@@ -254,7 +294,10 @@ void xlog::fatal(const char *class_name, const char *operation, const char *mess
 
 	else
 	{
-		std::string msg = "Fatal error ! ";
+		std::string msg;
+		if (printDate)
+			msg = msg + dateTime();
+		msg = msg + "Fatal error ! ";
 		if (class_name)
 			msg = msg + class_name;
 		if (operation)
