@@ -49,7 +49,7 @@ const char *xlog::dateTime()
 	time (&dateTime_t);
 
 	struct tm * timeinfo = localtime ( &dateTime_t );
-	strftime(dateTimeStr, 40, "%Y-%m-%d %H-%M-%S", timeinfo);
+	strftime(dateTimeStr, 40, "%Y-%m-%d %H:%M::%S", timeinfo);
 
 	return dateTimeStr;
 }
@@ -61,9 +61,9 @@ void formatMessage(std::string &result, const char *class_name, const char *oper
 	if (class_name)
 		result.append(class_name);
 	if (operation)
-		result.append("::").append(operation).append(" - ");
+		result.append("::").append(operation);
 	if (message)
-		result.append(message);
+		result.append(" - ").append(message);
 }
 
 /// Error message.
@@ -210,7 +210,7 @@ void xlog::syserr(const char *message)
 	{
 		std::string msg;
 		if (printDate)
-			msg.append(dateTime());
+			msg.append(dateTime()).append(" ");
 		msg.append("System error : ").append(message);
 		std::cerr<<msg<<std::endl;
 	}
@@ -225,7 +225,7 @@ void xlog::fatal(const char *message)
 	{
 		std::string msg;
 		if (printDate)
-			msg.append(dateTime());
+			msg.append(dateTime()).append(" ");
 		msg.append("Fatal error ! The program will exit. Message is :\n").append(message);
 		std::cerr<<msg<<std::endl;
 	}
@@ -246,7 +246,7 @@ void xlog::fatal(const char *class_name, const char *operation, const char *mess
 		std::string msg;
 		if (printDate)
 		{
-			msg.append(dateTime());
+			msg.append(dateTime()).append(" ");
 			xlog::printDate = false;
 		}
 		msg.append("Fatal error ! The program will exit. Message is :\n");
