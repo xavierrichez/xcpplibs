@@ -1,0 +1,11 @@
+struct JobInfo {
+
+	string sourceDocument;
+	string fileToProcess;
+	string fileParameters;
+	string resultFile;
+	string serviceId;
+}
+
+
+
