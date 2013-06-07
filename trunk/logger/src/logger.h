@@ -21,10 +21,8 @@
 #ifndef _Logger_H
 #define _Logger_H
 
-#ifdef _WIN32
-#include <windef.h>
-#else
-#include <stddef.h>
+#ifndef NULL
+#define NULL (0)
 #endif
 
 namespace xlog
