@@ -1,3 +1,13 @@
+#ifdef _MSC_VER
+	#ifndef WIN32_LEAN_AND_MEAN
+		#define WIN32_LEAN_AND_MEAN
+	#endif
+	#include <windows.h>
+#elif _WIN32
+	#include <windef.h>
+#else
+	#include <stddef.h>
+#endif
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -7,7 +17,7 @@
 bool		   xlog::printDate = false;
 static time_t  dateTime_t;
 static char    dateTimeStr[40];
-xlog::LogLevel xlog::level = level_UNDEFINED;
+xlog::LogLevel xlog::level = xlog::level_UNDEFINED;
 
 void xlog::setLogLevel(LogLevel l)
 {
@@ -49,7 +59,7 @@ const char *xlog::dateTime()
 	time (&dateTime_t);
 
 	struct tm * timeinfo = localtime ( &dateTime_t );
-	strftime(dateTimeStr, 40, "%Y-%m-%d %H:%M::%S", timeinfo);
+	strftime(dateTimeStr, 40, "%Y-%m-%d %H:%M:%S", timeinfo);
 
 	return dateTimeStr;
 }
