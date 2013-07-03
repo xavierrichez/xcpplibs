@@ -71,11 +71,11 @@ void JobDispatcher::dispatchJobs()
 			JobInfo broadcast;
 			if (firstLaunch)
 			{
-				broadcast.serviceId = JobHandler::BroadcastStartupID;
+				broadcast.jobID = JobHandler::BroadcastStartupID;
 				firstLaunch = false;
 			}
 			else
-				broadcast.serviceId = JobHandler::BroadcastID;
+				broadcast.jobID = JobHandler::BroadcastID;
 
 			m_dispatchChannel.sendMessage(broadcast);
 		}
@@ -118,12 +118,12 @@ void JobDispatcher::notifyMessage(const Ping *serviceInfo)
 			m_jobList.erase(m_jobList.begin());
 			if (! m_jobManager->getJobInfo(jobID, job))
 			{
-				xlog::warn(className, "notifyMessage", ("document skipped : '"+jobID+"' ("+job.fileToProcess+")").c_str());
+				xlog::warn(className, "notifyMessage", ("document skipped : '"+jobID+"' ("+job.command+")").c_str());
 			}
 			else
 			{
 				foundJob=true;
-				xlog::info(className, "notifyMessage", ("new doc to process by "+pID+" : "+job.fileToProcess).c_str());
+				xlog::info(className, "notifyMessage", ("new doc to process by "+pID+" : "+job.command).c_str());
 			}
 		} while ((! foundJob) && (! m_jobList.empty()));
 
@@ -133,7 +133,7 @@ void JobDispatcher::notifyMessage(const Ping *serviceInfo)
 			m_jobsInProgress[pID]=jobID;
 
 			// shipping the message
-			job.serviceId=pID;
+			job.handlerID=pID;
 			m_dispatchChannel.sendMessage(job);
 		}
 		else 
