@@ -1,9 +1,21 @@
+ifeq ("", "$(CONFIG)")
 # CONFIG : DEBUG OR RELEASE ?
-#CONFIG=		RELEASE
-CONFIG=		DEBUG
+CONFIG=		RELEASE
+#CONFIG=	DEBUG
+endif
+ifeq ("", "$(PLATFORM)")
 PLATFORM=	UNIX
 #PLATFORM=	WINDOWS
-
+endif
+ifeq ("", "$(PREFIX)")
+	ifeq (WINDOWS, $(PLATFORM))
+		# under MinGW, put libs into /mingw/lib
+		PREFIX=/mingw/
+	else
+		# under Linux, put libs into /usr/local/lib
+		PREFIX=/usr/local
+	endif
+endif
 ifeq (DEBUG, $(CONFIG))
 	# add debug symbols
 	BUILDFLAGS=-ggdb -Wall
@@ -14,14 +26,9 @@ endif
 ifeq (WINDOWS, $(PLATFORM))
 	# specific #define for Windows
 	PLATFORMFLAGS+=-D_WIN32 -DWIN32 -U_UNICODE -UUNICODE
-	# under MinGW, put libs into /mingw/lib
-	PREFIX=/mingw/
-else
-	# under Linux, put libs into /usr/local/lib
-	PREFIX=/usr/local
 endif
 
-CXXFLAGS=$(BUILDFLAGS) $(PLATFORMFLAGS) $(DEPFLAGS)
+CXXFLAGS=$(BUILDFLAGS) $(PLATFORMFLAGS)
 AR=ar
 CC=gcc
 CXX=g++
