@@ -27,10 +27,7 @@ public:
 	JobManager() {};
 	virtual ~JobManager() {};
 
-	virtual void jobCompleted(const std::string &jobID)=0;
-	virtual void batchCompleted()=0;
-
-	virtual JobInfo getJobInfo(const std::string &jobID)=0;
+	virtual bool getJobInfo(const std::string &jobID, JobInfo &job)=0;
 };
 
 #endif /* JOBMANAGER_H_ */
