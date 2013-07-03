@@ -1,5 +1,4 @@
 struct Ping
 {
-	boolean available;
 	string  serviceId;
 }
