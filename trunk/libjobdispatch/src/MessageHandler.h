@@ -21,12 +21,20 @@
  * Lesser General Public License for more details.
  **********************************************************************************/
 
+#include <lcm/lcm-cpp.hpp>
+
 template <class T> class MessageHandler
 {
 public:
 	virtual ~MessageHandler() {;}
 
+	void handleMessage(const lcm::ReceiveBuffer* rbuf, const std::string& channelName, const T* messageData);
 	virtual void notifyMessage(const T *messageData)=0;
 };
+
+template <class T> void MessageHandler<T>::handleMessage(const lcm::ReceiveBuffer* rbuf, const std::string& channelName, const T* messageData)
+{
+	notifyMessage(messageData);
+}
 
 #endif /* MESSAGEHANDLER_H_ */
