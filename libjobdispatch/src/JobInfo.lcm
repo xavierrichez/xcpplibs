@@ -1,10 +1,10 @@
 struct JobInfo {
 
-	string sourceDocument;
-	string fileToProcess;
-	string fileParameters;
-	string resultFile;
-	string serviceId;
+	string jobID;		// job identifier
+	string command;		// file to process or command to execute
+	string parameters;	// command parameters
+	string result;		// result value or file
+	string handlerID;	// service which will process this job
 }
 
 

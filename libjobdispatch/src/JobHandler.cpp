@@ -71,13 +71,13 @@ void JobHandler::notifyMessage(const JobInfo *job)
 		return;
 	}
 
-	if (job->serviceId == BroadcastStartupID)
+	if (job->jobID == BroadcastStartupID)
 	{ 	// sent on master start
 		xlog::debug(className, "notifyMessage", "master started");
 		sendPing();
 		m_ignoreBroadcast = false;
 	}
-	else if (job->serviceId == BroadcastID)
+	else if (job->jobID == BroadcastID)
 	{ 	// broadcast from the master
 		if (! m_ignoreBroadcast)
 		{
@@ -96,7 +96,7 @@ void JobHandler::notifyMessage(const JobInfo *job)
 			}
 		}
 	}
-	else if (m_serviceId == job->serviceId)
+	else if (m_serviceId == job->handlerID)
 	{ 	// if the current instructions are for this processor, launch the process
 		m_available = false;
 		handle(job);
@@ -105,7 +105,7 @@ void JobHandler::notifyMessage(const JobInfo *job)
 	}
 	else
 	{	// job for another service
-		xlog::debug(className, "notifyMessage", ("message to "+job->serviceId).c_str());
+		xlog::debug(className, "notifyMessage", ("message to "+job->handlerID).c_str());
 	}
 }
 
@@ -127,7 +127,7 @@ void BasicJobHandler::handle(const JobInfo *job)
 	std::cout<<"new job !\n";
 	if (job != NULL)
 	{
-		std::cout<<"handle "<<job->sourceDocument<<std::endl;
+		std::cout<<"handle "<<job->jobID<<std::endl;
 	}
 }
 
