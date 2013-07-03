@@ -19,12 +19,18 @@
  * Lesser General Public License for more details.
  **********************************************************************************/
 
-
 #include <xcpplibs/logger.h>
 #include <lcm/lcm-cpp.hpp>
+#include <boost/thread.hpp>
+#include "stringcollections.h"
 #include "MessageHandler.h"
 #include "MessageException.h"
-#include "stringcollections.h"
+#ifdef _WIN32
+#include <lcm/windows/WinPorting.h>
+#else
+#include <sys/time.h>
+#include <sys/select.h>
+#endif
 
 template <class T> class MessageChannel {
 
@@ -34,38 +40,34 @@ public:
 
 	const std::string & getChannelName() const;
 
-	const MessageHandler<T> *getMessageHandler() const;
-	void setMessageHandler(MessageHandler<T> *handler);
+	const std::vector< MessageHandler<T> *> &getMessageHandlers() const;
+	void addMessageHandler(MessageHandler<T> *handler);
 
 	bool sendMessage(const T &message);
-	void waitForMessage();
+	void handleMessages();
+	bool waitForMessageWithTimeout(int secondsToWait);
 
 protected:
-	void handleMessage(const lcm::ReceiveBuffer* rbuf, const std::string& channelName, const T* messageData);
 
 	std::string		m_channelName;
 	lcm::LCM		m_lcm;
-	lcm::Subscription *m_lcmSubscription;
-	MessageHandler<T> *m_handler;
+	std::vector< MessageHandler<T> *> m_handlers;
 
 };
 
 template <class T> MessageChannel<T>::MessageChannel(const char *channelName, MessageHandler<T> *handler):
 	m_channelName(channelName),
 	m_lcm(),
-	m_lcmSubscription(NULL),
-	m_handler(handler)
+	m_handlers()
 {
 	xlog::trace("MessageChannel", "constructor");
 
 	if (!m_lcm.good())
 	    xlog::fatal("Communication layer is not ready. Any firewall or network issue ?");
 
-	if (m_handler)
+	if (handler)
 	{
-		// if the user provided a message handler, we shoud subscribe the channel to receive the messages
-		xlog::debug("MessageChannel", "constructor", (std::string("subscribe to channel ")+channelName).c_str());
-		m_lcmSubscription = m_lcm.subscribe(m_channelName.c_str(), &MessageChannel<T>::handleMessage, this);
+		addMessageHandler(handler);
 	}
 }
 
@@ -73,37 +75,37 @@ template <class T> MessageChannel<T>::~MessageChannel()
 {
 	xlog::trace("MessageChannel", "destructor");
 
-	if (m_handler)
-	{
-		// we should NOT delete the message handler
-		m_handler=NULL;
-	}
-
-	if (m_lcmSubscription)
-	{
-		m_lcm.unsubscribe(m_lcmSubscription);
-		m_lcmSubscription=NULL;
-	}
+	m_handlers.clear();
 }
 
 template <class T> const std::string & MessageChannel<T>::getChannelName() const
 { return m_channelName; }
 
-template <class T> const MessageHandler<T> *MessageChannel<T>::getMessageHandler() const
-{ return m_handler; }
+template <class T> const std::vector< MessageHandler<T> *> &MessageChannel<T>::getMessageHandlers() const
+{ return m_handlers; }
 
-template <class T> void MessageChannel<T>::setMessageHandler(MessageHandler<T> *handler)
-{ m_handler = handler; }
-
-
-template <class T> void MessageChannel<T>::waitForMessage()
+template <class T> void MessageChannel<T>::addMessageHandler(MessageHandler<T> *handler)
 {
-	xlog::trace("MessageChannel", "waitForMessage", m_channelName.c_str());
+	xlog::trace("MessageChannel", "addMessageHandler");
 
-	if (!m_handler)
+	m_handlers.push_back(handler);
+
+	// we shoud subscribe the channel to receive the messages
+	xlog::debug("MessageChannel", "addMessageHandler", ("subscribe to channel "+m_channelName).c_str());
+	lcm::Subscription *subscription = m_lcm.subscribe(m_channelName.c_str(), &MessageHandler<T>::handleMessage, handler);
+	if (subscription != NULL)
+		subscription->setQueueCapacity(100);
+}
+
+
+template <class T> void MessageChannel<T>::handleMessages()
+{
+	xlog::trace("MessageChannel", "handleMessages", m_channelName.c_str());
+
+	if (m_handlers.empty())
 	{
-		xlog::error("MessageChannel", "waitForMessage", "Message handler not defined");
-		throw MessageException("Message handler not defined");
+		xlog::error("MessageChannel", "handleMessages", "No message handler defined");
+		throw MessageException("No message handler defined");
 	}
 
 	try {
@@ -113,18 +115,55 @@ template <class T> void MessageChannel<T>::waitForMessage()
 			{
 				xlog::fatal("Communication error !");
 			}
-			xlog::debug("MessageChannel", "waitForMessage", "lcm good");
+			else
+				xlog::debug("MessageChannel", "handleMessages", "communication ok");
 		}
 	} catch (std::exception &e) {
-		xlog::syserr(e.what());
+		xlog::error("MessageChannel", "handleMessages", (std::string("exception : ")+e.what()).c_str());
 	}
 }
 
-template <class T> void MessageChannel<T>::handleMessage(const lcm::ReceiveBuffer* rbuf, const std::string& channelName, const T* messageData)
+template <class T> bool MessageChannel<T>::waitForMessageWithTimeout(int secondsToWait)
 {
-	xlog::trace("MessageChannel", "handleMessage", channelName.c_str());
+	xlog::trace("MessageChannel", "waitForMessageWithTimeout", m_channelName.c_str());
+	//@see lcm/examples/c/listener-async.c
 
-	m_handler->notifyMessage(messageData);
+	int internalLcmPipe = m_lcm.getFileno();
+	fd_set fds;
+	FD_ZERO(&fds);
+	FD_SET(internalLcmPipe, &fds);
+
+	// wait a limited amount of time for an incoming message
+	struct timeval timeout = {
+		1,  // seconds
+		0   // microseconds
+	};
+	int waitStatus = select(internalLcmPipe + 1, &fds, 0, 0, &timeout);
+
+	if (waitStatus == 0)
+	{
+		xlog::trace("MessageChannel", "waitForMessageWithTimeout", "timeout expired, no message");
+		return false;
+	}
+	else if (waitStatus < 0)
+	{
+		xlog::warn("MessageChannel" "waitForMessageWithTimeout", "socket error !!");
+		return false;
+	}
+	else
+	{
+		if (FD_ISSET(internalLcmPipe, &fds))
+		{
+			// LCM has events ready to be processed.
+			xlog::trace("MessageChannel", "waitForMessageWithTimeout", "messages available");
+			return true;
+		}
+		else
+		{
+			xlog::debug("MessageChannel", "waitForMessageWithTimeout", "no more message available");
+			return false;
+		}
+    }
 }
 
 template <class T> bool MessageChannel<T>::sendMessage(const T &message)

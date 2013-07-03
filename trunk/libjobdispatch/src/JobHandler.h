@@ -39,7 +39,6 @@ public:
 	static const char *BroadcastID;
 	static short MaxBroadcastNumber;
 	static int ReadRetryInterval;
-	static int ReadRetryNumber;
 
 protected:
 	void sendPing();
