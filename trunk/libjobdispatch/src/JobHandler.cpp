@@ -53,7 +53,6 @@ void JobHandler::sendPing()
 
 	Ping ping;
 	ping.serviceId=m_serviceId;
-	ping.available=m_available;
 	m_pingChannel.sendMessage(ping);
 }
 
