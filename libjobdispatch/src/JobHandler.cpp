@@ -10,7 +10,6 @@ short 		JobHandler::MaxBroadcastNumber	= 20;
 const char *JobHandler::BroadcastStartupID	="MasterJustStarted";
 const char *JobHandler::BroadcastID		="MasterBroadcast";
 int 		JobHandler::ReadRetryInterval	= 8;
-int			JobHandler::ReadRetryNumber		= 8;
 
 JobHandler::JobHandler(const std::string &serviceId, const char *channelName):
 	m_serviceId(serviceId),
@@ -28,6 +27,9 @@ JobHandler::~JobHandler()
 	xlog::trace(className, "destructor");
 }
 
+/**
+ * Enter the receive loop
+ */
 void JobHandler::plug()
 {
 	xlog::trace(className, "plug");
@@ -35,12 +37,15 @@ void JobHandler::plug()
 	sendPing();
 	while (true)
 	{
-		m_dispatchChannel.waitForMessage();
+		if (m_dispatchChannel.waitForMessageWithTimeout(ReadRetryInterval))
+		{	// messages published
+			m_dispatchChannel.handleMessages();
+		}
 	}
 }
 
 /**
- * Fonction qui envoie un simple ping au master
+ * Say "hi, I'm there !" to the master, so that to get some work to do.
  */
 void JobHandler::sendPing()
 {
@@ -54,8 +59,8 @@ void JobHandler::sendPing()
 
 
 /**
- * fonction (callback) declenchee quand le service recoit une commande
- * la commande peut etre destinee a ce service, mais aussi a un autre service
+ * This callback is triggered when the service receives a job.
+ * The job can be addressed to this service or to another service.
  */
 void JobHandler::notifyMessage(const JobInfo *job)
 {
@@ -111,19 +116,19 @@ class BasicJobHandler : public JobHandler
 {
 public:
 	BasicJobHandler(const std::string &serviceId, const char *channelName);
-	void process(const JobInfo *job);
+	void handle(const JobInfo *job);
 };
 
 BasicJobHandler::BasicJobHandler(const std::string &serviceId, const char *channelName):
 	JobHandler(serviceId, channelName)
 {;}
 
-void BasicJobHandler::process(const JobInfo *job)
+void BasicJobHandler::handle(const JobInfo *job)
 {
 	std::cout<<"new job !\n";
 	if (job != NULL)
 	{
-		std::cout<<job->sourceDocument<<" as "<<job->fileParameters<<std::endl;
+		std::cout<<"handle "<<job->sourceDocument<<std::endl;
 	}
 }
 
@@ -131,17 +136,16 @@ int main(int argc, char *argv[])
 {
 	if (argc < 2)
 	{
-		std::cerr<<"usage : "<<argv[0]<<" lang [logLevel]"<<std::endl;
+		std::cerr<<"usage : "<<argv[0]<<" [logLevel]"<<std::endl;
 		exit(EXIT_FAILURE);
 	}
 
 	xlog::setLogLevel(xlog::level_WARN);
-	const char * lang = argv[1];
 	if (argc > 2)
 		xlog::setLogLevel(argv[2]);
 
-	BasicJobHandler langProcess(lang, ProcessingChannel::ChannelDocumentEtiq(lang).c_str());
-	langProcess.plug();
+	BasicJobHandler test("hello", "testchannel");
+	test.plug();
 }
 
 #endif

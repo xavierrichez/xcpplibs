@@ -2,7 +2,7 @@
 #include <xcpplibs/logger.h>
 #include <iostream>
 
-static const char *className = "ProcessingChannel";
+static const char *className = "JobDispatchChannel";
 
 JobDispatchChannel::JobDispatchChannel(const char *channelName, MessageHandler<JobInfo> *handler):
 	MessageChannel<JobInfo>(channelName, handler)

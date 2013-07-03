@@ -39,12 +39,10 @@ public:
 
 private:
 	void notifyMessage(const Ping *messageData);
-	void waitForServices();
 
 protected:
 	int					m_waitTime;
-	int					m_broadcastCounter;
-	stringdeque			m_jobList;
+	stringvector		m_jobList;
 	bool				m_jobsDone;
 	JobManager *		m_jobManager;
 	stringmap			m_jobsInProgress;
