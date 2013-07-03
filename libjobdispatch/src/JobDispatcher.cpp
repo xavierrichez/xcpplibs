@@ -88,7 +88,7 @@ void JobDispatcher::dispatchJobs()
  **/
 void JobDispatcher::notifyMessage(const Ping *serviceInfo)
 {
-	xlog::trace(className, "notifyMessage", ("ping from "+serviceInfo->processId).c_str());
+	xlog::trace(className, "notifyMessage", ("ping from "+serviceInfo->serviceId).c_str());
 
 	if (! serviceInfo)
 	{
